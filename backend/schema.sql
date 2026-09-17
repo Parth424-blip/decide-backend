@@ -1,0 +1,6 @@
+CREATE TABLE rooms (
+  id SERIAL PRIMARY KEY,
+  code TEXT UNIQUE NOT NULL,
+  status TEXT DEFAULT 'active',
+  created_at TIMESTAMP DEFAULT NOW()
+);
