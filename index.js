@@ -23,6 +23,16 @@ app.post("/rooms", async (req, res) => {
   res.send(result.rows[0]);
 });
 
+app.get("/rooms/:code", async (req, res) => {
+  const code1 = req.params.code;
+
+  const result = await pool.query("SELECT * FROM rooms WHERE code = $1", [
+    code1,
+  ]);
+
+  res.send(result.rows[0]);
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
