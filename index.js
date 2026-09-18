@@ -10,14 +10,11 @@ const app = express();
 const port = 3001;
 
 app.post("/rooms", async (req, res) => {
-  const generatedCode = Math.random()
-    .toString(36)
-    .substring(2, 8)
-    .toUpperCase();
+  const randomNumber = Math.random().toString(36).substring(2, 8).toUpperCase();
 
   const result = await pool.query(
     "INSERT INTO rooms (code) VALUES ($1) RETURNING *",
-    [generatedCode],
+    [randomNumber],
   );
 
   res.send(result.rows[0]);
