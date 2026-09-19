@@ -9,6 +9,25 @@ const redis = Redis.fromEnv();
 const app = express();
 const port = 3001;
 
+app.use(express.json());
+
+app.post("/rooms/:code/join", async (req, res) => {
+  const code = req.params.code;
+
+  const displayName = req.body.displayName;
+
+  const roomResult = await pool.query("SELECT * FROM rooms WHERE code = $1", [
+    code,
+  ]);
+  const roomid = newParticipant.rows[0].id;
+  const newParticipant = await pool.query(
+    "INSERT INTO participants (room_id, display_name) VALUES ($1, $2) RETURNING *",
+    [roomId, displayName],
+  );
+
+  res.send(newParticipant.rows[0]);
+});
+
 app.post("/rooms", async (req, res) => {
   const randomNumber = Math.random().toString(36).substring(2, 8).toUpperCase();
 
