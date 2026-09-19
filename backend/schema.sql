@@ -30,3 +30,11 @@ CREATE TABLE swipes (
   direction TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT NOW()
 );
+
+
+CREATE TABLE matches (
+  id SERIAL PRIMARY KEY,
+  room_id INTEGER REFERENCES rooms(id),
+  item_id INTEGER REFERENCES items(id),
+  matched_at TIMESTAMP DEFAULT NOW()
+);
